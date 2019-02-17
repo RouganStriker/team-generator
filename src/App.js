@@ -258,9 +258,11 @@ class TeamGenerator extends Component {
                 return (
                   <Grid item xs={6} key={index}>
                     <Paper>
-                      <List subheader={<ListSubheader>{groupData["name"]}</ListSubheader>}>
+                      <List subheader={<ListSubheader style={{"backgroundColor": "white"}}>{groupData["name"]}</ListSubheader>}>
                         {
-                          groupData["members"].map((member, index) => <ListItem key={index} divider={true}>{member}</ListItem>)
+                          [...groupData["members"]].sort().map((member, index) => {
+                            return <ListItem key={index} divider={true}>{member}</ListItem>;
+                          })
                         }
                       </List>
                     </Paper>

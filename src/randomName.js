@@ -13,12 +13,12 @@ var nm2 = ["Abeille","Alouette","Anguille","Antilope","Araignée","Astérie","Au
 
 
 function nameGen(type) {
-  let names = '';
+  let names = [];
 	let tp = type;
-	let element = document.createElement("div");
-	element.setAttribute("id", "result");
 
 	for (let i = 0; i < 10; i++) {
+	  let name = '';
+
     if (tp === 1) {
       if (i < 6) {
         const rnd = Math.random() * nm2.length | 0;
@@ -26,43 +26,46 @@ function nameGen(type) {
         if (nTp === 0) {
           const rnd2 = Math.random() * nm1b.length | 0;
           if (rnd < 64) {
-            names = "la " + nm1d[rnd2] + " " + nm2[rnd];
+            name = "la " + nm1d[rnd2] + " " + nm2[rnd];
           } else {
-            names = "le " + nm1b[rnd2] + " " + nm2[rnd];
+            name = "le " + nm1b[rnd2] + " " + nm2[rnd];
           }
         } else {
           const rnd2 = Math.random() * nm1a.length | 0;
           if (rnd < 64) {
             if (rnd < 11) {
-              names = "l'" + nm2[rnd] + " " + nm1c[rnd2];
+              name = "l'" + nm2[rnd] + " " + nm1c[rnd2];
             } else {
-              names = "la " + nm2[rnd] + " " + nm1c[rnd2];
+              name = "la " + nm2[rnd] + " " + nm1c[rnd2];
             }
           } else {
             if (rnd < 91) {
-              names = "l'" + nm2[rnd] + " " + nm1a[rnd2];
+              name = "l'" + nm2[rnd] + " " + nm1a[rnd2];
             } else {
-              names = "le " + nm2[rnd] + " " + nm1a[rnd2];
+              name = "le " + nm2[rnd] + " " + nm1a[rnd2];
             }
           }
         }
       } else {
         const rnd = Math.random() * names3.length | 0;
-        names = names3[rnd];
+        name = names3[rnd];
       }
     } else {
       if (i < 6) {
         const rnd = Math.random() * names1.length | 0;
         const rnd2 = Math.random() * names2.length | 0;
-        names = "The " + names1[rnd] + " " + names2[rnd2];
+        name = "The " + names1[rnd] + " " + names2[rnd2];
       } else {
         const rnd = Math.random() * names3.length | 0;
-        names = names3[rnd];
+        name = names3[rnd];
       }
     }
 
-    return names;
+    names.push(name);
   }
+
+	// Return a random name from the list
+	return names[Math.floor(Math.random() * names.length)];
 }
 
 export default nameGen;
