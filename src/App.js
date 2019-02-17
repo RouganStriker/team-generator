@@ -40,33 +40,26 @@ class TeamGenerator extends Component {
     super(props);
 
     const { location } = props;
-    const parsed_params = location.search.split("?", 2)[1].split("&").reduce((acc, param) => {
-      const [name, value] = param.split("=", 2);
-
-      acc[name] = decodeURI(value);
-
-      return acc;
-    }, {});
-
+    const parsedParams = this.parseURLParam(location);
     let numGroups = 2;
     let nameList = [];
     let randomizedGroups = [];
 
     // Prepare random seed.
     // Use URL specified seed if available.
-    if (parsed_params.seed) {
-      this.prepareRandomSeed(this.decodeSeed(parsed_params.seed));
+    if (parsedParams.seed) {
+      this.prepareRandomSeed(this.decodeSeed(parsedParams.seed));
     }
 
     // Parse default number of groups
-    if (parsed_params.numGroups != null) {
-      const parsedNumGroups = parseInt(parsed_params.numGroups);
+    if (parsedParams.numGroups != null) {
+      const parsedNumGroups = parseInt(parsedParams.numGroups);
       numGroups = parsedNumGroups && parsedNumGroups > numGroups ? parsedNumGroups : numGroups;
     }
 
     // Parse default list of members
-    if (parsed_params.members) {
-      const memberNames = parsed_params.members.split(",");
+    if (parsedParams.members) {
+      const memberNames = parsedParams.members.split(",");
 
       nameList = memberNames.map((name, index) => { return {"key": index, "label": name}; });
 
@@ -82,6 +75,22 @@ class TeamGenerator extends Component {
       newMember: '',
       randomizedGroups: randomizedGroups,
     };
+  };
+
+  parseURLParam = (location) => {
+    const queryParams = location.search.split("?", 2)[1];
+
+    if (!queryParams) {
+      return {};
+    }
+
+    return queryParams.split("&").reduce((acc, param) => {
+      const [name, value] = param.split("=", 2);
+
+      acc[name] = decodeURI(value);
+
+      return acc;
+    }, {});
   };
 
   decodeSeed = (seed) => {
