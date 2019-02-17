@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+
+ team-gen:
+    container_name: team-gen
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - './node_modules:/usr/src/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
