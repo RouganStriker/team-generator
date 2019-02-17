@@ -1,8 +1,17 @@
+# Overview
+
+Generate random teams by specifying the number of teams and a list of members. Each team will be assigned a random name based on [http://www.fantasynamegenerators.com/mascot-names.php](http://www.fantasynamegenerators.com/mascot-names.php).
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+## `docker-compose up`
+
+Run the app in a docker container.
 
 ### `npm start`
 
